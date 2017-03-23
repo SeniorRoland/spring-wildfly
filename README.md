@@ -2,7 +2,106 @@
 
 Need to edit or create some existing WildFly modul configuration.
 
-1. Edit ..\org\apache\cxf\impl\main\module.xml
+### 1. Create org.springframework.spring module
+
+This configuration contains more Spring dependency. You can narrow the list.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.3" name="org.springframework.spring">
+
+    <resources>
+      <resource-root path="spring-aop-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-beans-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-context-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-context-support-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-core-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-data-commons-1.13.1.RELEASE.jar"/>
+      <resource-root path="spring-data-jpa-1.11.1.RELEASE.jar"/>
+      <resource-root path="spring-expression-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-instrument-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-jdbc-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-orm-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-security-config-4.2.2.RELEASE.jar"/>
+      <resource-root path="spring-security-core-4.2.2.RELEASE.jar"/>
+      <resource-root path="spring-security-web-4.2.2.RELEASE.jar"/>
+      <resource-root path="spring-security-ldap-4.2.2.RELEASE.jar"/>
+      <resource-root path="spring-tx-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-web-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-webmvc-4.3.7.RELEASE.jar"/>
+      <resource-root path="spring-ldap-core-2.2.0.RELEASE.jar"/>
+      <resource-root path="c3p0-0.9.1.1.jar"/>
+      <resource-root path="quartz-2.2.3.jar"/>
+      <resource-root path="spring-jms-4.2.8.RELEASE.jar"/>
+      <resource-root path="commons-fileupload-1.3.2.jar"/>
+      <resource-root path="commons-io-2.2.jar"/>
+      <resource-root path="aspectjrt-1.7.1.jar"/>
+      <resource-root path="aspectjweaver-1.7.1.jar"/>
+      <resource-root path="aopalliance-1.0.jar"/>
+    </resources>
+
+    <dependencies>
+      <module name="sun.jdk" />
+      <module name="org.slf4j"/>
+      <module name="javax.api"/>
+      <module name="javax.persistence.api"/>
+      <module name="javax.servlet.api"/>
+      <module name="javax.servlet.jsp.api"/>
+      <module name="javax.jms.api"/>
+      <module name="javax.annotation.api"/>
+      <module name="org.apache.commons.logging"/>
+      <module name="org.apache.commons.lang"/>
+      <module name="org.jboss.vfs"/>
+      <module name="com.fasterxml.jackson.core.jackson-core" />
+      <module name="com.fasterxml.jackson.core.jackson-databind" />
+      <module name="com.fasterxml.jackson.core.jackson-annotations"/>
+    </dependencies>
+</module>
+
+
+### 2. Edit ..\org\apache\cxf\main\module.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.3" name="org.apache.cxf">
+
+    <resources>
+        <resource-root path="cxf-core-3.1.6.jar"/>
+    </resources>
+
+    <dependencies>
+        <module name="org.apache.cxf.impl" services="import">
+            <imports>
+                <include path="META-INF/cxf"/> <!-- required to also pull in the bus extensions from META-INF -->
+                <include path="META-INF"/>
+            </imports>
+        </module>
+        <module name="asm.asm" />
+        <module name="javax.api" />
+        <module name="javax.annotation.api" />
+        <module name="javax.validation.api" optional="true"/>
+        <module name="javax.jws.api" />
+        <module name="javax.mail.api" />
+        <module name="javax.resource.api" />
+        <module name="javax.wsdl4j.api" />
+        <module name="javax.xml.bind.api" services="import"/>
+        <module name="com.sun.xml.bind" services="import"/>
+        <module name="javax.xml.soap.api" />
+        <module name="javax.xml.stream.api" />
+        <module name="javax.xml.ws.api" />
+        <module name="com.sun.xml.fastinfoset"/>
+        <module name="org.apache.neethi" />
+        <module name="org.apache.ws.xmlschema" />
+        <module name="org.codehaus.woodstox" />
+        <module name="org.apache.xml-resolver" />
+        <module name="org.springframework.spring" optional="true">
+            <imports>
+                <include path="META-INF"/>
+            </imports>
+        </module>
+    </dependencies>
+</module>
+
+
+### 3. Edit ..\org\apache\cxf\impl\main\module.xml
 
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.3" name="org.apache.cxf.impl">
