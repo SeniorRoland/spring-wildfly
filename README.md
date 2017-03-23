@@ -1,4 +1,4 @@
-# Wildfly 10.x - Spring 4.x sample applications.
+# Wildfly 10.x - Spring 4.x - CXF JAX-WS sample applications.
 
 Need to edit or create some existing WildFly modul configuration.
 
